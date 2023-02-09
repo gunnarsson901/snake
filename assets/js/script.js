@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d");
 let snake = [];
 let food = null;
 let score = 0;
-
+canvas.style.border = '1px solid black';
 // create snake
 for (let i = 0; i < 5; i++) {
     snake.push({x: i, y: 0});
@@ -35,4 +35,22 @@ function generateFood() {
 function drawFood() {
     ctx.fillStyle = "red";
     ctx.fillRect(food.x * 10, food.y * 10, 10, 10);
+}
+
+function checkColision() {
+    //If head collides with wall
+    if(snake[0].x * 10 >= canvas.width || snake[0].x < 0 || snake[0].y * 10 >= canvas.height || snake[0].y < 0){
+        endGame();
+    }
+
+    //If head collides with the body
+    for(let i = 1; i < snake.length; i++) {
+        if(snake[0].x === snake[i].x && snake[0].y === snake[i].y) {
+            endGame;
+        }
+    }
+}
+
+function endGame() {
+    clearInterval(gameLoop);
 }
